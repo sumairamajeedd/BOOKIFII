@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Booki Fi" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+<body>
+  <!-- Navbar -->
+  <nav 
+     class="bg-red-800 h-16 flex items-center px-4 space-x-6">
+        <%= link_to root_path do %>
+        <%= image_tag "logo.png", alt: "My Logo", class: "h-15 w-15 rounded-full " %>
+  <% end %>
+      <span class="text-white font-bold text-lg">BookiFi</span>
+        <!-- Right side: Links -->
+     <div class="flex space-x-6">
+      <%= link_to "Features", features_path, class: "text-white hover:text-gray-300" %>
+      <%= link_to "Testimonials", testimonials_path, class: "text-white hover:text-gray-300" %>
+      <%= link_to "Blog", blog_path, class: "text-white hover:text-gray-300" %>
+      <%= link_to "Contact", contact_path, class: "text-white hover:text-gray-300" %>
+    </div>
+    <div class="flex items-center space-x-4 ml-auto">
+    <%= link_to "Login", new_user_session_path , class: "text-white hover:text-gray-300" %>
+    <%= link_to "Sign Up", new_user_registration_path , class: "bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700" %>
+  </div>
+  </nav>
+  <div class="grid grid-cols-3  mt-2 gap-2">
+    <div class="h-16  rounded-full bg-blue-500"/></div>
+    <div class="h-16  rounded-full bg-red-500"/></div>
+    <div class="h-16 rounded-full bg-yellow-500"/></div>
+    </div>
+
+
+  <!-- Main Page Content -->
+  <main class="container mx-auto mt-28 px-5 flex">
+      <%= yield %>
+  </main>
+</body>
+</html>
+
