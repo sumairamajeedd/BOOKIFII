@@ -1,0 +1,19 @@
+<h1>Browse Books</h1>
+
+<%= form_with url: books_path, method: :get, local: true do |f| %>
+  <%= f.text_field :query, placeholder: "Search books..." %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<% @books.each do |book| %>
+  <div class="book-card p-4 border rounded mb-4">
+    <h2 class="text-xl font-bold"><%= book.title %></h2>
+    <p>Author: <%= book.author %></p>
+    <p>Publisher: <%= book.publisher %></p>
+    <p>Published: <%= book.published_date %></p>
+    <% if book.thumbnail.present? %>
+      <%= image_tag book.thumbnail, class: "mt-2" %>
+    <% end %>
+    <p>Category: <%= book.category %></p>
+  </div>
+<% end %>

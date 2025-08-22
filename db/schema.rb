@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_19_031630) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_22_170706) do
+  create_table "books", force: :cascade do |t|
+    t.string "google_book_id"
+    t.string "title"
+    t.string "author"
+    t.string "publisher"
+    t.date "published_date"
+    t.text "description"
+    t.string "category"
+    t.string "language"
+    t.float "average_rating"
+    t.integer "ratings_count"
+    t.string "country"
+    t.string "saleability"
+    t.boolean "is_ebook"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "thumbnail"
+    t.string "small_thumbnail"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

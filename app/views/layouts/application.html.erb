@@ -10,48 +10,61 @@
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+
 <body>
   <!-- Navbar -->
-  <nav 
-     class="bg-red-800 h-16 flex items-center px-4 space-x-6">
-        <%= link_to root_path do %>
-        <%= image_tag "logo.png", alt: "My Logo", class: "h-15 w-15 rounded-full " %>
-  <% end %>
-      <span class="text-white font-bold text-lg">BookiFi</span>
-        <!-- Right side: Links -->
-     <div class="flex space-x-6">
+  <nav class="bg-red-800 h-16 flex items-center px-4 space-x-6">
+    <%= link_to root_path do %>
+      <%= image_tag "logo.png", alt: "My Logo", class: "h-15 w-15 rounded-full" %>
+    <% end %>
+    <span class="text-white font-bold text-lg">BookiFi</span>
+
+    <!-- Right side: Links -->
+    <div class="flex space-x-6">
       <%= link_to "Features", features_path, class: "text-white hover:text-gray-300" %>
       <%= link_to "Testimonials", testimonials_path, class: "text-white hover:text-gray-300" %>
       <%= link_to "Blog", blog_path, class: "text-white hover:text-gray-300" %>
       <%= link_to "Contact", contact_path, class: "text-white hover:text-gray-300" %>
     </div>
-    <div class="flex items-center space-x-4 ml-auto">
-    <%= link_to "Login", new_user_session_path , class: "text-white hover:text-gray-300" %>
-    <%= link_to "Sign Up", new_user_registration_path , class: "bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700" %>
-  </div>
-  </nav>
-  <div class="grid grid-cols-3  mt-2 gap-2">
-    <div class="h-16  rounded-full bg-blue-500"/></div>
-    <div class="h-16  rounded-full bg-red-500"/></div>
-    <div class="h-16 rounded-full bg-yellow-500"/></div>
-    </div>
 
+    <div class="flex items-center space-x-4 ml-auto">
+      <% if user_signed_in? %>
+        <%= link_to "Browse Books", books_path, class: "text-white hover:text-gray-300" %>
+       <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?" }, class: "text-white hover:text-gray-300" %>
+
+      <% else %>
+        <%= link_to "Login", new_user_session_path, class: "text-white hover:text-gray-300" %>
+        <%= link_to "Sign Up", new_user_registration_path, class: "bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700" %>
+      <% end %>
+    </div>
+  </nav>
+
+  <% if controller_name == "pages" && action_name == "index" %>
+    <div class="relative w-full h-[60vh]">
+      <%= image_tag "download.png", class: "absolute inset-0 w-full h-full object-cover" %>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="text-center px-4">
+          <h1 class="text-3xl md:text-5xl font-extrabold text-white">
+            Unlock a Universe of Stories
+          </h1>
+          <p class="mt-3 md:mt-4 text-sm md:text-lg text-white/90 max-w-2xl mx-auto">
+            Discover the most captivating reads, personalized just for you.
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
   <!-- Main Page Content -->
   <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+    <%= yield %>
   </main>
 </body>
 </html>
-
