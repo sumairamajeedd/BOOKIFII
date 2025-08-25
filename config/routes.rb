@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+ 
+
   devise_for :users
   root "pages#index"
   get "pages/index"
-   resources :books, only: [:index]
+  resources :books
+  # resources :books, only: [:index]
   get "features", to: "pages#features"
    get "testimonials", to: "pages#testimonials"
   get "blog", to: "pages#blog"

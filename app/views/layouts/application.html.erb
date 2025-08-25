@@ -35,15 +35,14 @@
     </div>
 
     <div class="flex items-center space-x-4 ml-auto">
-      <% if user_signed_in? %>
-        <%= link_to "Browse Books", books_path, class: "text-white hover:text-gray-300" %>
-       <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?" }, class: "text-white hover:text-gray-300" %>
+  <% if user_signed_in? %>
+    <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-white hover:text-gray-300" %>
+  <% else %>
+    <%= link_to "Login", new_user_session_path, class: "text-white hover:text-gray-300" %>
+    <%= link_to "Sign Up", new_user_registration_path, class: "bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700" %>
+  <% end %>
+</div>
 
-      <% else %>
-        <%= link_to "Login", new_user_session_path, class: "text-white hover:text-gray-300" %>
-        <%= link_to "Sign Up", new_user_registration_path, class: "bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700" %>
-      <% end %>
-    </div>
   </nav>
 
   <% if controller_name == "pages" && action_name == "index" %>
@@ -68,3 +67,4 @@
   </main>
 </body>
 </html>
+

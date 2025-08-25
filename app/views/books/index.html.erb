@@ -1,19 +1,58 @@
-<h1>Browse Books</h1>
+<div class="max-w-7xl mx-auto px-6 py-10">
+  <!-- Page Heading -->
+  <h2 class="text-3xl font-bold mb-8">Browse Books</h2>
 
-<%= form_with url: books_path, method: :get, local: true do |f| %>
-  <%= f.text_field :query, placeholder: "Search books..." %>
-  <%= f.submit "Search" %>
-<% end %>
+  <!-- Filters -->
+  <div class="bg-white shadow rounded-lg p-6 mb-8">
+    <%= search_form_for @q, url: books_path, method: :get, class: "flex flex-wrap gap-4 items-end" do |f| %>
+      
+      <div>
+        <%= f.label :title_cont, "Title", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.search_field :title_cont, class: "mt-1 block w-48 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      </div>
 
-<% @books.each do |book| %>
-  <div class="book-card p-4 border rounded mb-4">
-    <h2 class="text-xl font-bold"><%= book.title %></h2>
-    <p>Author: <%= book.author %></p>
-    <p>Publisher: <%= book.publisher %></p>
-    <p>Published: <%= book.published_date %></p>
-    <% if book.thumbnail.present? %>
-      <%= image_tag book.thumbnail, class: "mt-2" %>
+      <div>
+        <%= f.label :author_cont, "Author", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.search_field :author_cont, class: "mt-1 block w-48 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      </div>
+
+      <div>
+        <%= f.label :category_eq, "Category", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.select :category_eq, Book.distinct.pluck(:category).compact, { include_blank: "All" }, class: "mt-1 block w-48 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      </div>
+
+      <div>
+        <%= f.submit "Filter", class: "inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700" %>
+      </div>
     <% end %>
-    <p>Category: <%= book.category %></p>
   </div>
-<% end %>
+
+  <!-- Results -->
+  <% if @books.any? %>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <% @books.each do |book| %>
+        <div class="bg-white shadow rounded-lg p-4 hover:shadow-lg transition">
+          <% if book.thumbnail.present? %>
+            <%= image_tag book.thumbnail, alt: book.title, class: "w-full h-48 object-cover rounded-md" %>
+          <% else %>
+            <div class="w-full h-48 bg-gray-200 rounded-md flex items-center justify-center text-gray-500">
+              No Image
+            </div>
+          <% end %>
+
+          <!-- Book Title as Link -->
+          <h3 class="mt-3 font-semibold text-lg truncate">
+            <%= link_to book.title, book_path(book), class: "text-red-600 hover:underline" %>
+          </h3>
+
+          <p class="text-sm text-gray-600"><%= book.author.presence || "Unknown Author" %></p>
+          <p class="text-xs mt-1">
+            <span class="bg-gray-100 px-2 py-1 rounded"><%= book.category %></span>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-gray-600">No books found.</p>
+  <% end %>
+</div>
