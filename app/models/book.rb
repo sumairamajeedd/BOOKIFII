@@ -1,5 +1,5 @@
 class Book < ApplicationRecord
-  # agar tumhare associations hain to unke liye bhi ransackable_associations define karna hoga
+  # agar meri  associations hain to unke liye bhi ransackable_associations define karna hoga
 
   def self.ransackable_attributes(auth_object = nil)
     [

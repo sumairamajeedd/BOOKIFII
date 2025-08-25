@@ -11,41 +11,29 @@ class BooksController < ApplicationController
 
   # GET /books/:id
   def show
-      @book = Book.find(params[:id])
+    @book = Book.find(params[:id])
   end
 
-  # GET /books/new
   def new
     @book = Book.new
   end
 
-  # POST /books
+  
   def create
-    #@book = Book.new(book_params)
-    #if @book.save
-      #redirect_to @book, notice: "Book was successfully created."
-    #else
-      #render :new, status: :unprocessable_entity
-    #end
+    
   end
 
-  # GET /books/:id/edit
+ 
   def edit
   end
 
-  # PATCH/PUT /books/:id
+  
   def update
-    #if @book.update(book_params)
-      #redirect_to @book, notice: "Book was successfully updated."
-    #else
-     # render :edit, status: :unprocessable_entity
-    #end
+    
   end
 
-  # DELETE /books/:id
+ 
   def destroy
-    #@book.destroy
-    #redirect_to books_path, notice: "Book was successfully deleted."
   end
 
   private

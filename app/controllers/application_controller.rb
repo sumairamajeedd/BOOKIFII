@@ -1,10 +1,9 @@
-# app/controllers/application_controller.rb
+
 class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     books_path  # Login SUCCESS ke baad books page
   end
-  
-  # Ye add karo - already logged in users ko handle karne ke liye
+ 
   def authenticate_user!
     if user_signed_in?
       redirect_to books_path and return if request.path.in?(['/users/sign_in', '/users/sign_up'])
