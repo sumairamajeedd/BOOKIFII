@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  google_book_id: MyString
+  title: MyString
+  author: MyString
+  publisher: MyString
+  published_date: 2025-08-22
+  description: MyText
+  category: MyString
+  language: MyString
+  average_rating: 1.5
+  ratings_count: 1
+  country: MyString
+  saleability: MyString
+  is_ebook: false
+
+two:
+  google_book_id: MyString
+  title: MyString
+  author: MyString
+  publisher: MyString
+  published_date: 2025-08-22
+  description: MyText
+  category: MyString
+  language: MyString
+  average_rating: 1.5
+  ratings_count: 1
+  country: MyString
+  saleability: MyString
+  is_ebook: false
