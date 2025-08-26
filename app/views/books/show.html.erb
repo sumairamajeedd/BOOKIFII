@@ -1,0 +1,17 @@
+<h1 class="text-2xl font-bold mb-4"><%= @book.title %></h1>
+
+<p><strong>Author:</strong> <%= @book.author.presence || "Unknown" %></p>
+<p><strong>Category:</strong> <%= @book.category.presence || "Uncategorized" %></p>
+<p><strong>Publisher:</strong> <%= @book.publisher.presence || "Unknown" %></p>
+<p><strong>Published Date:</strong> <%= @book.published_date.presence || "Unknown" %></p>
+<p><strong>Language:</strong> <%= @book.language.presence || "N/A" %></p>
+<p><strong>Average Rating:</strong> <%= @book.average_rating.presence || "N/A" %></p>
+<p><strong>Ratings Count:</strong> <%= @book.ratings_count.presence || "N/A" %></p>
+<p><strong>Saleability:</strong> <%= @book.saleability.presence || "N/A" %></p>
+<p><strong>Is eBook:</strong> <%= @book.is_ebook ? "Yes" : "No" %></p>
+
+<div class="mt-4">
+  <p><%= @book.description.presence || "No description available" %></p>
+</div>
+
+<%= link_to "Back to Books", books_path, class: "text-blue-600 hover:underline" %>
