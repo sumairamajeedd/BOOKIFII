@@ -1,39 +1,56 @@
-<div class="max-w-6xl mx-auto p-6">
+<div class="max-w-full mx-auto p-6">
   <h2 class="text-2xl font-bold mb-4">Recommended for you</h2>
 
+  <!-- 🔹 Title + Description Based Recommendations -->
   <div class="mb-8">
     <h3 class="text-lg font-semibold mb-2">Based on title + description</h3>
     <% if @word_recommended.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <% @word_recommended.each do |book| %>
-          <div class="p-4 bg-white rounded-lg shadow">
-            <h4 class="font-bold"><%= book.title %></h4>
-            <p class="text-sm text-gray-600 mt-2"><%= truncate(book.description.to_s, length: 120) %></p>
-            <p class="text-xs mt-2 text-gray-500"><%= book.category %></p>
-            <div class="mt-3"><%= link_to "View", book_path(book), class: "text-sm underline" %></div>
-          </div>
-        <% end %>
+      <div class="overflow-x-auto">
+        <div class="grid grid-flow-col auto-cols-max gap-4 snap-x snap-mandatory p-2">
+          <% @word_recommended.each do |book| %>
+            <div class="w-60 flex-none p-3 bg-white rounded-md shadow text-xs snap-start">
+              <h4 class="font-semibold text-sm truncate"><%= book.title %></h4>
+              <p class="text-[11px] text-gray-600 mt-1">
+                <%= truncate(book.description.to_s, length: 40) %>
+              </p>
+              <p class="text-[10px] mt-1 text-gray-500"><%= book.category %></p>
+              <div class="mt-1">
+                <%= link_to "View", book_path(book), class: "text-[11px] underline text-blue-600" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </div>
     <% else %>
-      <div class="p-4 bg-yellow-50 border rounded">Not enough matches yet — read more books.</div>
+      <div class="p-4 bg-yellow-50 border rounded">
+        Not enough matches yet — read more books.
+      </div>
     <% end %>
   </div>
 
+  <!-- 🔹 Category Based Recommendations -->
   <div>
     <h3 class="text-lg font-semibold mb-2">From your top category</h3>
     <% if @category_recommended.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <% @category_recommended.each do |book| %>
-          <div class="p-4 bg-white rounded-lg shadow">
-            <h4 class="font-bold"><%= book.title %></h4>
-            <p class="text-sm text-gray-600 mt-2"><%= truncate(book.description.to_s, length: 120) %></p>
-            <div class="mt-3"><%= link_to "View", book_path(book), class: "text-sm underline" %></div>
-          </div>
-        <% end %>
+      <div class="overflow-x-auto">
+        <div class="grid grid-flow-col auto-cols-max gap-4 snap-x snap-mandatory p-2">
+          <% @category_recommended.each do |book| %>
+            <div class="w-60 flex-none p-3 bg-white rounded-md shadow text-xs snap-start">
+              <h4 class="font-semibold text-sm truncate"><%= book.title %></h4>
+              <p class="text-[11px] text-gray-600 mt-1">
+                <%= truncate(book.description.to_s, length: 40) %>
+              </p>
+              <div class="mt-1">
+                <%= link_to "View", book_path(book), class: "text-[11px] underline text-blue-600" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </div>
     <% else %>
-      <div class="p-4 bg-yellow-50 border rounded">Read a few books so we can detect your favorite category.</div>
+      <div class="p-4 bg-yellow-50 border roundaed">
+        Read a few books so we can detect your favorite category.
+      </div>
     <% end %>
-    
   </div>
 </div>
