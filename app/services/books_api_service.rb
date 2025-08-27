@@ -12,7 +12,7 @@ class BooksApiService
       url = "#{BASE_URL}?q=a&maxResults=40&startIndex=#{start_index}"
       uri = URI(url)
       response = Net::HTTP.get(uri)
-      result = JSON.parse(response)
+      result = JSON.parse(response)w
 
       items = result["items"] || []
       books.concat(items)
