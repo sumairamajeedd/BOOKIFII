@@ -1,21 +1,33 @@
 <div class="max-w-full mx-auto p-6">
+  <!-- 🔹 Back Button -->
+  <div class="mb-4">
+    <%= link_to "← Back to Home", root_path, class: "text-blue-600 underline hover:text-blue-800" %>
+  </div>
+
   <h2 class="text-2xl font-bold mb-4">Recommended for you</h2>
 
   <!-- 🔹 Title + Description Based Recommendations -->
   <div class="mb-8">
     <h3 class="text-lg font-semibold mb-2">Based on title + description</h3>
     <% if @word_recommended.any? %>
-      <div class="overflow-x-auto">
-        <div class="grid grid-flow-col auto-cols-max gap-4 snap-x snap-mandatory p-2">
+      <!-- Slider Container -->
+      <div class="overflow-x-auto scroll-smooth snap-x snap-mandatory">
+        <div class="flex space-x-4">
           <% @word_recommended.each do |book| %>
-            <div class="w-60 flex-none p-3 bg-white rounded-md shadow text-xs snap-start">
-              <h4 class="font-semibold text-sm truncate"><%= book.title %></h4>
-              <p class="text-[11px] text-gray-600 mt-1">
-                <%= truncate(book.description.to_s, length: 40) %>
-              </p>
-              <p class="text-[10px] mt-1 text-gray-500"><%= book.category %></p>
-              <div class="mt-1">
-                <%= link_to "View", book_path(book), class: "text-[11px] underline text-blue-600" %>
+            <!-- Each Book Card -->
+            <div class="fix-width bg-white shadow rounded-lg p-4 flex-shrink-0 snap-start">
+              <% if book.thumbnail.present? %>
+                <%= image_tag book.thumbnail, class: "w-full h-40 object-cover rounded-md" %>
+              <% else %>
+                <div class="w-full h-40 bg-gray-200 flex items-center justify-center rounded-md">No Image</div>
+              <% end %>
+
+              <h4 class="font-semibold text-sm mt-2 truncate"><%= book.title %></h4>
+              <p class="text-[12px] text-gray-600 mt-1"><%= truncate(book.description.to_s, length: 40) %></p>
+              <p class="text-[11px] text-gray-500"><%= book.category %></p>
+
+              <div class="mt-2">
+                <%= link_to "View", book_path(book), class: "text-[12px] underline text-blue-600" %>
               </div>
             </div>
           <% end %>
@@ -32,23 +44,30 @@
   <div>
     <h3 class="text-lg font-semibold mb-2">From your top category</h3>
     <% if @category_recommended.any? %>
-      <div class="overflow-x-auto">
-        <div class="grid grid-flow-col auto-cols-max gap-4 snap-x snap-mandatory p-2">
+      <!-- Slider Container -->
+      <div class="overflow-x-auto scroll-smooth snap-x snap-mandatory">
+        <div class="flex space-x-4">
           <% @category_recommended.each do |book| %>
-            <div class="w-60 flex-none p-3 bg-white rounded-md shadow text-xs snap-start">
-              <h4 class="font-semibold text-sm truncate"><%= book.title %></h4>
-              <p class="text-[11px] text-gray-600 mt-1">
-                <%= truncate(book.description.to_s, length: 40) %>
-              </p>
-              <div class="mt-1">
-                <%= link_to "View", book_path(book), class: "text-[11px] underline text-blue-600" %>
+            <!-- Each Book Card -->
+            <div class="min-w-[220px] bg-white shadow rounded-lg p-4 flex-shrink-0 snap-start">
+              <% if book.thumbnail.present? %>
+                <%= image_tag book.thumbnail, class: "w-full h-40 object-cover rounded-md" %>
+              <% else %>
+                <div class="w-full h-40 bg-gray-200 flex items-center justify-center rounded-md">No Image</div>
+              <% end %>
+
+              <h4 class="font-semibold text-sm mt-2 truncate"><%= book.title %></h4>
+              <p class="text-[12px] text-gray-600 mt-1"><%= truncate(book.description.to_s, length: 40) %></p>
+
+              <div class="mt-2">
+                <%= link_to "View", book_path(book), class: "text-[12px] underline text-blue-600" %>
               </div>
             </div>
           <% end %>
         </div>
       </div>
     <% else %>
-      <div class="p-4 bg-yellow-50 border roundaed">
+      <div class="p-4 bg-yellow-50 border rounded">
         Read a few books so we can detect your favorite category.
       </div>
     <% end %>

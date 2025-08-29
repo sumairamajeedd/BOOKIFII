@@ -12,8 +12,8 @@ class BooksController < ApplicationController
     # Recommended Books for logged-in users
     if user_signed_in? 
       service = RecommendationService.new(current_user)
-      @word_recommended     = service.by_words(5)      # word-based recommendations
-       @category_recommended = service.by_category(5)   # category-based recommendations
+      @word_recommended     = service.by_words(7)      # word-based recommendations
+       @category_recommended = service.by_category(7)   # category-based recommendations
     else
       @word_recommended     = []
       @category_recommended = []
@@ -62,7 +62,7 @@ end
   # GET /books/recommended (optional separate page)
   def recommended
     service = RecommendationService.new(current_user)
-    limit = params[:limit].presence&.to_i || 5
+    limit = params[:limit].presence&.to_i || 7
     @word_recommended     = service.by_words(limit)
     @category_recommended = service.by_category(limit)
   end

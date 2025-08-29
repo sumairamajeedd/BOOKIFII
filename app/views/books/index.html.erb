@@ -1,6 +1,6 @@
-<div class="max-w-7xl mx-auto px-6 py-10">
+<div class="max-w-7xl mx-auto px-4 py-8">
   <!-- Page Heading -->
-  <h2 class="text-3xl font-bold mb-8">Browse Books</h2>
+  <h2 class="text-3xl font-bold ">Browse Books</h2>
 
   <!-- Filters -->
   <div class="bg-white shadow rounded-lg p-6 mb-8">
@@ -37,7 +37,7 @@
   <!-- Recommended Books (Word-based) -->
   <% if @word_recommended.present? %>
     <h3 class="text-2xl font-semibold mb-4 text-green-700">Recommended Books (Word-based)</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
+    <div class="flex overflow-x-auto mb-10">
       <%= render partial: "books/book_card", collection: @word_recommended, as: :book %>
     </div>
   <% end %>
@@ -45,7 +45,7 @@
   <!-- Recommended Books (Category-based) -->
   <% if @category_recommended.present? %>
     <h3 class="text-2xl font-semibold mb-4 text-purple-700">Recommended Books (Category-based)</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
+    <div class="flex overflow-x-auto mb-10">
       <%= render partial: "books/book_card", collection: @category_recommended, as: :book %>
     </div>
   <% end %>

@@ -6,12 +6,22 @@ class RecommendationService
 
   def initialize(user, read_books: nil)
     @user = user
-    # Sirf "read" status wali books consider karo
     @read_books = read_books || @user.user_books.where(status: "read").includes(:book).map(&:book)
   end
 
+  # ✅ Final wrapper method
+  def recommended_books(limit = 7)
+    # Pehle word-based le lo
+    word_based = by_words(limit)
+    # Agar category based available hai to mix kar do
+    category_based = by_category(limit)
+
+    # Merge dono arrays (unique rakho) aur limit lagao
+    (word_based + category_based).uniq.first(limit)
+  end
+
   # 🔹 Word-based recommendation (content similarity)
-  def by_words(limit = 5)
+  def by_words(limit = 7)
     return fallback_books(limit) if @read_books.empty?
 
     profile = build_profile(@read_books)
@@ -25,7 +35,7 @@ class RecommendationService
   end
 
   # 🔹 Category-based recommendation (fav category)
-  def by_category(limit = 5)
+  def by_category(limit = 7)
     return fallback_books(limit) if @read_books.empty?
 
     fav = top_category(@read_books)
@@ -38,7 +48,6 @@ class RecommendationService
 
   private
 
-  # Extract words from title/description
   def extract_words(text)
     text.to_s.downcase
         .gsub(/[^a-z\s]/, ' ')
@@ -46,7 +55,6 @@ class RecommendationService
         .reject { |w| w.length < 3 || STOPWORDS.include?(w) }
   end
 
-  # Build user profile from read books
   def build_profile(books)
     counts = Hash.new(0)
     books.each do |book|
@@ -56,7 +64,6 @@ class RecommendationService
     counts
   end
 
-  # Score book based on profile
   def score_book(book, profile)
     score = 0
     extract_words(book.title).each { |w| score += (profile[w] || 0) * TITLE_WEIGHT }
@@ -64,7 +71,6 @@ class RecommendationService
     score
   end
 
-  # Find top category among read books
   def top_category(books)
     cats = books.pluck(:category).compact
     return nil if cats.empty?
@@ -72,8 +78,7 @@ class RecommendationService
     cats.tally.max_by { |_, c| c }&.first
   end
 
-  # 🔹 fallback books agar read_books empty ho
-  def fallback_books(limit = 5)
+  def fallback_books(limit = 7)
     Book.order("RANDOM()").limit(limit)
   end
 end

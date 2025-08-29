@@ -1,0 +1,12 @@
+:concurrency: 5
+:queues:
+  - default
+
+:cron:
+  my_first_job:
+    cron: " * * * *"        # every hour
+    class: "MyFirstJob"
+    queue: default
+    description: "Runs every hour"
+
+ 
