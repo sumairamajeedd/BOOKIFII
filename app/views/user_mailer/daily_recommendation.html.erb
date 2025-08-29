@@ -1,0 +1,11 @@
+<h2>Hello <%= @user.email %>,</h2>
+
+<p>Here are your daily book recommendations:</p>
+
+<ul>
+  <% @books.each do |book| %>
+    <li><strong><%= book.title %></strong> by <%= book.author %></li>
+  <% end %>
+</ul>
+
+<p>Happy Reading! 📖</p>

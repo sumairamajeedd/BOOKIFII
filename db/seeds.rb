@@ -47,3 +47,4 @@ while books_fetched < total_books
   books_fetched += books.size
   start_index += books.size
 end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

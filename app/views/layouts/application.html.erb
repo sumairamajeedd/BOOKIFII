@@ -13,8 +13,7 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
@@ -32,13 +31,15 @@
       <%= link_to "Testimonials", testimonials_path, class: "text-white hover:text-gray-300" %>
       <%= link_to "Blog", blog_path, class: "text-white hover:text-gray-300" %>
       <%= link_to "Contact", contact_path, class: "text-white hover:text-gray-300" %>
+      <%= link_to "Browse Books", books_path, class: "text-white hover:text-gray-300" %>
+      <%= link_to "Recommended Books", recommended_books_path, class: "text-white hover:text-gray-300" %>
       
-
-    </div>
+</div>
 
     <div class="flex items-center space-x-4 ml-auto">
   <% if user_signed_in? %>
-    <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-white hover:text-gray-300" %>
+  <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "text-white hover:text-gray-300 bg-transparent border-0 p-0" %>
+
   <% else %>
     <%= link_to "Login", new_user_session_path, class: "text-white hover:text-gray-300" %>
     <%= link_to "Sign Up", new_user_registration_path, class: "bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700" %>

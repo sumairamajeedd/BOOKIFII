@@ -72,5 +72,14 @@ gem "tailwindcss-rails", "~> 4.3"
 
 gem "devise", "~> 4.9"
 gem "byebug"
-gem "slick-rails"
+gem 'sidekiq'
+gem 'sidekiq-cron'
+gem 'activeadmin', '~> 3.3'
 
+gem "sprockets-rails"
+gem 'sassc-rails'
+
+
+
+
+gem "cssbundling-rails", "~> 1.4"
